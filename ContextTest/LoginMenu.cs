@@ -10,9 +10,8 @@ namespace WebshopTest
 {
     public class LoginMenu : IWebshopSystem
     {
-        CustomerBuilder custBuild = new CustomerBuilder();
+        ICustomerBuild build = new CustomerBuilder();
         NavigatorClass nav = new NavigatorClass();
-        Database database = new Database();
         List<Customer> customers;
         List<string> options;
         string info = "Please submit username and password.";
@@ -23,7 +22,8 @@ namespace WebshopTest
         Customer currentCustomer;
         public LoginMenu()
         {
-            customers = database.GetCustomers();
+            WebShopContext web = new WebShopContext();
+            customers = web.customers;
             currentChoice = 1;
             amountOfOptions = 4;
             options = new List<string>();
@@ -44,9 +44,9 @@ namespace WebshopTest
 
         private void PrintMenu()
         {
-            foreach (string option in options)
+            for (int i = 0; i < options.Count; i++)
             {
-                Console.WriteLine(option);
+                Console.WriteLine(options[i]);
             }
 
         }
@@ -82,10 +82,7 @@ namespace WebshopTest
                 }
                 if (currentChoice == 4)
                 {
-                    Customer cust = custBuild.CreateCustomer();
-                    customers.Add(cust);
-                    state.CurrentCustomer = cust;
-                    Console.WriteLine(cust.Username + " is now registered and logged in!");
+                    RegisterUser(state);
                     state.SwitchState(new MainMenu());
                 }
             }
@@ -117,10 +114,10 @@ namespace WebshopTest
             {
                 Console.WriteLine("Incomplete data.");
             }
-            else
+            if (username != null || password != null)
             {
                 bool found = false;
-                foreach (Customer customer in customers)
+                foreach (Customer customer in state.customers)
                 {
                     if (username.Equals(customer.Username) && customer.CheckPassword(password))
                     {
@@ -136,5 +133,15 @@ namespace WebshopTest
                 }
             }
         }
+
+        public void RegisterUser(WebShopContext state)
+        {
+            Customer cust = build.CreateCustomer();
+            state.customers = customers;
+            customers.Add(cust);
+            state.CurrentCustomer = cust;
+            Console.WriteLine(cust.Username + " is now registered and logged in!");
+        }
     }
+
 }

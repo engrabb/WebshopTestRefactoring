@@ -39,15 +39,13 @@ namespace WebshopTest
         }
         private void PrintMenu()
         {
-            foreach (string option in options)
+            for (int i = 0; i < options.Count; i++)
             {
-                if(currentCustomer != null && option.Equals("4. Login"))
+                if (currentCustomer != null && options[i].Equals("4. Login"))
                 {
-                    Console.WriteLine(Logout);
-                    
+                    options[i] = Logout;
                 }
-                else
-                Console.WriteLine(option);
+                Console.WriteLine(options[i]);
             }
         }
 

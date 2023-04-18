@@ -12,11 +12,13 @@ namespace WebshopTest
         bool running = true;
         public WebShopClass()
         {
+
         }
 
         public void Run()
         {
             WebShopContext webbe = new WebShopContext();
+            Console.WriteLine("Welcome to the WebShop!");
             while (running)
             {
                 webbe.CurrentMenu();

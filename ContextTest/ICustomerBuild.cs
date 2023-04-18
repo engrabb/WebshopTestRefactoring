@@ -8,6 +8,14 @@ namespace WebshopTest
 {
     public interface ICustomerBuild
     {
-        Customer CreateCustomer();
+            ICustomerBuild GetUsername();
+            ICustomerBuild GetPassword();
+            ICustomerBuild GetFirstName();
+            ICustomerBuild GetLastName();
+            ICustomerBuild GetEmail();
+            ICustomerBuild GetAge();
+            ICustomerBuild GetAddress();
+            ICustomerBuild GetPhoneNumber();
+            Customer CreateCustomer();
     }
 }

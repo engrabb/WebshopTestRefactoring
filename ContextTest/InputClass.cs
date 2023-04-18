@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebshopTest.ContextTest;
 
 namespace WebshopTest
 {
 
     public class InputClass
     {
-        List<Customer> customers;
+        public List<Customer> customers;
         Database database = new Database();
         string username;
         public string GetStringInput(string message)
@@ -33,7 +34,7 @@ namespace WebshopTest
                     Console.WriteLine("Please actually write something.");
                     continue;
                 }
-                else
+                if(input != null)
                 {
                     return input;
                 }
@@ -63,7 +64,7 @@ namespace WebshopTest
                         Console.WriteLine("Please actually write something.");
                         continue;
                     }
-                    else
+                    if(input != null)
                     {
                         return Convert.ToInt32(input);
                     }
@@ -92,6 +93,7 @@ namespace WebshopTest
         }
         public void CheckAvailableUsername()
         {
+            
             database.GetCustomers();
             foreach (Customer customer in customers)
             {

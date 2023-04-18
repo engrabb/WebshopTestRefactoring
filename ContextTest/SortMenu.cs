@@ -37,9 +37,9 @@ namespace WebshopTest
         }
         private void PrintMenu()
         {
-            foreach (string option in options)
+            for (int i = 0; i < options.Count; i++)
             {
-                Console.WriteLine(option);
+                Console.WriteLine(options[i]);
             }
 
         }

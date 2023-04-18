@@ -82,12 +82,12 @@ namespace WebshopTest
                     currentCustomer.Orders.Add(new Order(product.Name, product.Price, DateTime.Now));
                     Console.WriteLine("\nSuccessfully bought {0}", product.Name);
                 }
-                else
+                if(currentCustomer.Funds < product.Price)
                 {
                     Console.WriteLine("\nYou cannot afford.");
                 }
             }
-            else
+            if(product.NrInStock == 0)
             {
                 Console.WriteLine("\nNot in stock.");
             }

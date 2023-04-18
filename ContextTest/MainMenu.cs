@@ -37,17 +37,14 @@ namespace WebshopTest
     
         private void PrintMenu()
         {
-            foreach (string option in options)
+            for(int i = 0; i < options.Count; i++)
             {
-                if (currentCustomer != null && option.Equals("3. Login"))
+                if (currentCustomer != null && options[i].Equals("3. Login"))
                 {
-                    Console.WriteLine(Logout);
-
+                    options[i] = Logout;
                 }
-                else
-                    Console.WriteLine(option);
+                Console.WriteLine(options[i]);
             }
-
         }
 
         private void OptionsNavigator(WebShopContext state)
@@ -84,6 +81,7 @@ namespace WebshopTest
                 {
                     state.CurrentCustomer = null;
                     Console.WriteLine("You have logged out!");
+                    state.SwitchState(new MainMenu());
                 }
                 if (currentChoice == 4)
                 {

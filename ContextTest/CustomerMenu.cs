@@ -78,9 +78,9 @@ namespace WebshopTest
 
         private void PrintMenu()
         {
-            foreach (string option in options)
+            for (int i = 0; i < options.Count; i++)
             {
-                Console.WriteLine(option);
+                Console.WriteLine(options[i]);
             }
 
         }
@@ -96,7 +96,7 @@ namespace WebshopTest
                 {
                     Console.WriteLine("Don't add negative amounts.");
                 }
-                else
+                if(amount > 0)
                 {
                     currentCustomer.Funds += amount;
                     Console.WriteLine(amount + " added to your profile.");

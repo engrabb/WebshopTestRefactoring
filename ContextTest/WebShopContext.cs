@@ -11,10 +11,12 @@ namespace WebshopTest.ContextTest
         private IWebshopSystem _state;
         public Customer CurrentCustomer { get; set; }
         public Database Database = new Database();
+        public List<Customer> customers = new List<Customer>();
 
         public List<Product> products = new List<Product>();
         public WebShopContext()
         {
+            customers = Database.GetCustomers();
             products = Database.GetProducts();
             _state = new MainMenu();
         }
