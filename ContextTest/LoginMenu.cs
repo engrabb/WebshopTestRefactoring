@@ -83,11 +83,9 @@ namespace WebshopTest
                     state.SwitchState(new MainMenu());
 
                 }
-                if (currentChoice == 4)
-                {
                     ExecuteCommand(currentChoice, state);
                     state.SwitchState(new MainMenu());
-                }
+                
             }
             if (choice == "back" || choice == "b")
             {
