@@ -20,6 +20,7 @@ namespace WebshopTest
             customers.Add(cust);
             state.CurrentCustomer = cust;
             Console.WriteLine(cust.Username + " is now registered and logged in!");
+            state.SwitchState(new MainMenu());
         }
     }
 }

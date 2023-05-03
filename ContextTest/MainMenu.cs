@@ -68,6 +68,7 @@ namespace WebshopTest
             }
             if (choice == "ok" || choice == "o" || choice == "k")
             {
+                ExecuteCommand(currentChoice, state);
                 if (currentChoice == 2 && currentCustomer == null)
                 {
                     Console.WriteLine("Nobody is logged in!");
@@ -79,7 +80,7 @@ namespace WebshopTest
                     Console.WriteLine("You have logged out!");
                     state.SwitchState(new MainMenu());
                 }
-                ExecuteCommand(currentChoice, state);
+                
             }
             if (choice == "back" || choice == "b")
             {
