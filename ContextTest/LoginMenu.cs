@@ -12,6 +12,7 @@ namespace WebshopTest
     {
         ICustomerBuild build = new CustomerBuilder();
         NavigatorClass nav = new NavigatorClass();
+        Dictionary<string, ICommands> commands;
         List<Customer> customers;
         List<string> options;
         string info = "Please submit username and password.";
@@ -27,10 +28,12 @@ namespace WebshopTest
             currentChoice = 1;
             amountOfOptions = 4;
             options = new List<string>();
+            commands = new Dictionary<string, ICommands>();
             options.Add("1. Set Username");
             options.Add("2. Set Password");
             options.Add("3. Login");
             options.Add("4. Register");
+            commands.Add("4", new RegisterUserCommand());
 
         }
 
@@ -82,7 +85,7 @@ namespace WebshopTest
                 }
                 if (currentChoice == 4)
                 {
-                    RegisterUser(state);
+                    ExecuteCommand(currentChoice, state);
                     state.SwitchState(new MainMenu());
                 }
             }
@@ -134,13 +137,13 @@ namespace WebshopTest
             }
         }
 
-        public void RegisterUser(WebShopContext state)
+        public void ExecuteCommand(int currentChoice, WebShopContext state)
         {
-            Customer cust = build.CreateCustomer();
-            state.customers = customers;
-            customers.Add(cust);
-            state.CurrentCustomer = cust;
-            Console.WriteLine(cust.Username + " is now registered and logged in!");
+            string choice = Convert.ToString(currentChoice);
+            if (commands.ContainsKey(choice))
+            {
+                commands[choice].Execute(state);
+            }
         }
     }
 

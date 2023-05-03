@@ -9,6 +9,7 @@ namespace WebshopTest
     public class WaresMenu : IWebshopSystem
     {
         NavigatorClass nav = new NavigatorClass();
+        Dictionary<string, ICommands> commands;
         List<Product> products;
         List<string> options;
         string info = "What would you like to do?";
@@ -24,10 +25,13 @@ namespace WebshopTest
             currentChoice = 1;
             amountOfOptions = 4;
             options = new List<string>();
+            commands = new Dictionary<string, ICommands>();
             options.Add("1. See all wares");
             options.Add("2. Purchase a ware");
             options.Add("3. Sort wares");
             options.Add("4. Login");
+            commands.Add("3", new SortMenuCommand());
+            commands.Add("4", new LoginMenuCommand());
         }
         public void CurrentMenu(WebShopContext state)
         {
@@ -78,19 +82,13 @@ namespace WebshopTest
                 {
                     Console.WriteLine("You have to be logged in to purchase a ware.");
                 }
-                if (currentChoice == 3)
-                {
-                    state.SwitchState(new SortMenu());
-                }
-                if(currentChoice == 4 && currentCustomer == null)
-                {
-                    state.SwitchState(new LoginMenu());
-                }
                 if (currentChoice == 4 && currentCustomer != null)
                 {
                     state.CurrentCustomer = null;
                     Console.WriteLine("You have logged out!");
                 }
+                ExecuteCommand(currentChoice, state);
+
             }
             if (choice == "back" || choice == "b")
             {
@@ -101,6 +99,14 @@ namespace WebshopTest
             {
                 Console.WriteLine("The console powers down. You are free to leave.");
                 Environment.Exit(1);
+            }
+        }
+        public void ExecuteCommand(int currentChoice, WebShopContext state)
+        {
+            string choice = Convert.ToString(currentChoice);
+            if (commands.ContainsKey(choice))
+            {
+                commands[choice].Execute(state);
             }
         }
     }
